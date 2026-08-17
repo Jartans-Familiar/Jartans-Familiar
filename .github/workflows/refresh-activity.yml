@@ -5,6 +5,12 @@ name: Refresh activity
 # this workflow needs no secret beyond the repository-scoped GITHUB_TOKEN it
 # uses to push the result.
 
+# Standing condition from the security ruling on this file (Thorne, JAR-355):
+# do not add `pull_request` or `pull_request_target` here. This job checks out
+# with credentials persisted and holds `contents: write`, which is safe only
+# because no untrusted code can make it run. Those two changes are individually
+# harmless and together are a token-theft path, and they would arrive months
+# apart.
 on:
   schedule:
     # Daily. If this stops running, the timestamp on the page goes stale in
