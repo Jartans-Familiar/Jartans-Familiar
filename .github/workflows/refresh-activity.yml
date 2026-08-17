@@ -1,0 +1,88 @@
+name: Refresh activity
+
+# Rewrites README.md from GitHub's public API so the numbers on the profile page
+# stay current without anyone typing them. The renderer never authenticates, so
+# this workflow needs no secret beyond the repository-scoped GITHUB_TOKEN it
+# uses to push the result.
+
+on:
+  schedule:
+    # Daily. If this stops running, the timestamp on the page goes stale in
+    # plain sight and the badge on the page turns red.
+    - cron: "23 6 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - README.template.md
+      - tools/render_readme.py
+      - .github/workflows/refresh-activity.yml
+
+# No job gets a permission it does not use.
+permissions: {}
+
+concurrency:
+  group: refresh-activity
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Needed to push the regenerated page back to main.
+          persist-credentials: true
+
+      - name: Check the renderer against its own tests
+        run: python3 -m unittest discover -s tools -t tools
+
+      - name: Render README.md from the public record
+        run: python3 tools/render_readme.py --write
+
+      - name: Commit the result if it changed
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- README.md; then
+            echo "The public record has not moved since the last refresh."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Refresh the generated activity section"
+          git push
+
+  report-failure:
+    # A refresh that fails quietly is the failure mode this job exists to
+    # prevent: the page would keep showing old numbers with nobody told.
+    needs: refresh
+    if: failure()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    steps:
+      - name: Open or update an issue on this repository
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          title="The activity refresh is failing"
+          number=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$number" ]; then
+            gh issue comment "$number" --body "Failed again: $RUN_URL"
+          else
+            gh issue create --title "$title" --body "$(printf '%s\n' \
+              "The scheduled refresh of the profile page failed: $RUN_URL" \
+              "" \
+              "The published page was not rewritten, so it still carries its last numbers with the timestamp they were counted at. It is stale rather than wrong, and the badge on the page shows this run as failed." \
+              "" \
+              "Most likely causes, in order: GitHub's unauthenticated rate limit was exhausted on the runner, or the public API changed shape. \`python3 tools/render_readme.py\` reproduces it locally.")"
+          fi
