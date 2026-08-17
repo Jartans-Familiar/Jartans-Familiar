@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Render README.md from README.template.md plus GitHub's *public* record.
 
-Two invariants hold this script honest, and both are tested:
+Three invariants hold this script honest, and all three are tested:
 
 1. **It never authenticates.** No credential is read from the environment and no
    ``Authorization`` header is ever built, so its output cannot grow when it is
@@ -9,10 +9,15 @@ Two invariants hold this script honest, and both are tested:
    rate-limit ceiling is higher than an unauthenticated one, which is the only
    way credentials could arrive without this file asking for them.
 2. **It emits no free text from the record.** The only strings that reach the
-   page are repository names taken from public repository listings, integers,
-   dates and URLs derived from those names. Pull request titles, commit
-   messages and branch names are read but never rendered, so a title mentioning
-   a private repository cannot publish that name.
+   page are repository names, integers, dates and URLs derived from those names.
+   Pull request titles, commit messages and branch names are read but never
+   rendered, so a title mentioning a private repository cannot publish that
+   name.
+3. **Every repository name it renders was proven public by this run.** A name
+   reaches the page only if an unauthenticated repository listing or an
+   unauthenticated search returned it, neither of which can return a private
+   repository. The event feed is a third source and is not trusted on its own:
+   an event whose repository is not in that proven set is dropped.
 
 Any fetch failure aborts before a byte is written, which leaves the committed
 README.md at its last good state with its own timestamp on it.
@@ -260,7 +265,9 @@ def collect(now: datetime, fetcher=fetch) -> Snapshot:
         key=lambda r: (r.last_commit or "", r.prs_merged, r.commits, r.full_name),
         reverse=True,
     )
-    snapshot.events = collect_events(fetcher)
+    # Every key here arrived from an unauthenticated listing or an
+    # unauthenticated search, so the set is exactly what this run proved public.
+    snapshot.events = collect_events(set(activity), fetcher)
     return snapshot
 
 
@@ -268,16 +275,36 @@ def _parse(stamp: str) -> datetime:
     return datetime.strptime(stamp, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
 
 
-def collect_events(fetcher=fetch) -> list[Event]:
-    """The tail of the account's public event feed, rendered without free text."""
+def collect_events(public_names: set[str], fetcher=fetch) -> list[Event]:
+    """The tail of the account's public event feed, rendered without free text.
+
+    ``public_names`` is the set of repositories this run proved public, from the
+    unauthenticated listings and the unauthenticated search. GitHub documents
+    this endpoint as public-only, but that is its behaviour rather than
+    something this run can check, so an event naming anything outside the proven
+    set is dropped rather than rendered.
+    """
     payload, _ = fetcher(f"{API}/users/{ACCOUNT}/events/public?per_page=100")
     events: list[Event] = []
+    dropped = 0
     for raw in payload:
+        if raw["repo"]["name"] not in public_names:
+            dropped += 1
+            continue
         text = _describe_event(raw)
         if text:
             events.append(Event(when=raw["created_at"], text=text))
         if len(events) == FEED_LENGTH:
             break
+    if dropped:
+        # Counted and not named: on a public repository the workflow log is
+        # public too, so naming a dropped repository here would publish exactly
+        # what the drop prevented.
+        print(
+            f"note: dropped {dropped} event(s) whose repository this run did not "
+            "prove public",
+            file=sys.stderr,
+        )
     return events
 
 

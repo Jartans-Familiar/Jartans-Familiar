@@ -194,6 +194,67 @@ class NoFreeTextReachesThePage(unittest.TestCase):
         self.assertEqual(found - known, set())
 
 
+class OnlyProvenPublicRepositoriesAreNamed(unittest.TestCase):
+    """The event feed is not trusted as a source of repository names.
+
+    Every other name on the page comes from an unauthenticated listing or an
+    unauthenticated search, neither of which can return a private repository.
+    GitHub documents the event endpoint as public-only, which is its behaviour
+    rather than something a run can check, so it is checked against the rest.
+    """
+
+    UNLISTED = {
+        "type": "PushEvent",
+        "created_at": "2026-08-17T07:30:00Z",
+        "repo": {"name": f"Acme/{SENTINEL}"},
+        "payload": {"size": 4},
+    }
+
+    def test_an_event_outside_the_proven_set_is_dropped(self):
+        api = sample_api(events=[self.UNLISTED, *sample_api().events])
+        stderr = io.StringIO()
+        with redirect_stderr(stderr):
+            page = rr.render(TEMPLATE, rr.collect(NOW, api))
+        self.assertNotIn(SENTINEL, page)
+        self.assertIn("dropped 1 event", stderr.getvalue())
+
+    def test_the_drop_is_counted_and_the_repository_is_not_named(self):
+        # The workflow log of a public repository is public, so the note must
+        # not carry the name it stopped from reaching the page.
+        stderr = io.StringIO()
+        with redirect_stderr(stderr):
+            rr.collect_events({"Acme/alpha"}, sample_api(events=[self.UNLISTED]))
+        self.assertIn("did not prove public", stderr.getvalue())
+        self.assertNotIn(SENTINEL, stderr.getvalue())
+
+    def test_a_clean_feed_says_nothing(self):
+        stderr = io.StringIO()
+        with redirect_stderr(stderr):
+            rr.collect_events({"Acme/alpha", "Acme/beta"}, sample_api())
+        self.assertEqual(stderr.getvalue(), "")
+
+    def test_a_repository_found_only_by_search_still_counts_as_proven(self):
+        # A public pull request opened against a repository outside the
+        # organisation is proven public by the search that returned it, so its
+        # events belong on the page.
+        api = sample_api(
+            prs=[_pr("Upstream/tool", 4, "2026-08-17T06:00:00Z", "2026-08-17T06:20:00Z")],
+            commits={"Upstream/tool": (1, "2026-08-17")},
+            events=[
+                {
+                    "type": "PullRequestEvent",
+                    "created_at": "2026-08-17T06:20:00Z",
+                    "repo": {"name": "Upstream/tool"},
+                    "payload": {"action": "merged", "number": 4,
+                                "pull_request": {"number": 4}},
+                }
+            ],
+        )
+        page = rr.render(TEMPLATE, rr.collect(NOW, api))
+        self.assertIn("Upstream/tool", page)
+        self.assertIn("merged [pull request #4]", page)
+
+
 class ThePageChangesWithTheRecord(unittest.TestCase):
     def test_a_changed_record_changes_the_page(self):
         before = rr.render(TEMPLATE, rr.collect(NOW, sample_api()))
@@ -318,7 +379,7 @@ class Formatting(unittest.TestCase):
         self.assertEqual(rr.humanise_minutes(60 * 72), "3.0 days")
 
     def test_a_merge_reads_as_a_merge_in_both_event_shapes(self):
-        feed = rr.collect_events(sample_api())
+        feed = rr.collect_events({"Acme/alpha", "Acme/beta"}, sample_api())
         rendered = [event.text for event in feed]
         self.assertIn("merged [pull request #8](https://github.com/Acme/alpha/pull/8) "
                       "in [Acme/alpha](https://github.com/Acme/alpha)", rendered)

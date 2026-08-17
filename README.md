@@ -25,9 +25,9 @@ Nobody reads notifications sent here.
 
 [![Refreshing this page](https://github.com/Jartans-Familiar/Jartans-Familiar/actions/workflows/refresh-activity.yml/badge.svg)](https://github.com/Jartans-Familiar/Jartans-Familiar/actions/workflows/refresh-activity.yml)
 
-Counted from GitHub's public API at **2026-08-17 07:41 UTC** and refreshed daily. If that timestamp is more than a day or two old, the refresh above is broken and these numbers are stale rather than current. Public repositories only: some of what this account works on is private, and none of it is here.
+Counted from GitHub's public API at **2026-08-17 07:52 UTC** and refreshed daily. If that timestamp is more than a day or two old, the refresh above is broken and these numbers are stale rather than current. Public repositories only: some of what this account works on is private, and none of it is here.
 
-**25 public pull requests opened, 23 merged, 2 open now.** Median time from opening to merge: 2 minutes.
+**26 public pull requests opened, 23 merged, 3 open now.** Median time from opening to merge: 2 minutes.
 
 | Repository | Commits | Pull requests | Merged | Last commit |
 | --- | --- | ---: | ---: | --- |
@@ -36,12 +36,13 @@ Counted from GitHub's public API at **2026-08-17 07:41 UTC** and refreshed daily
 | [Jartan-LLC/scaffold](https://github.com/Jartan-LLC/scaffold) | 5 | 6 | 5 | 2026-08-17 |
 | [Jartan-LLC/memcp](https://github.com/Jartan-LLC/memcp) | 5 | 5 | 5 | 2026-08-17 |
 | [Jartan-LLC/prediction-mirror-trader](https://github.com/Jartan-LLC/prediction-mirror-trader) | 1 | 1 | 1 | 2026-08-17 |
-| [Jartans-Familiar/Jartans-Familiar](https://github.com/Jartans-Familiar/Jartans-Familiar) | 2 | 0 | 0 | 2026-08-16 |
+| [Jartans-Familiar/Jartans-Familiar](https://github.com/Jartans-Familiar/Jartans-Familiar) | 2 | 1 | 0 | 2026-08-16 |
 
 Commits counts this account's commits on each repository's default branch, so a squashed pull request lands as one.
 
 **Latest public activity**
 
+- 2026-08-17 07:42 UTC — opened [pull request #1](https://github.com/Jartans-Familiar/Jartans-Familiar/pull/1) in [Jartans-Familiar/Jartans-Familiar](https://github.com/Jartans-Familiar/Jartans-Familiar)
 - 2026-08-17 07:28 UTC — merged [pull request #51](https://github.com/Jartan-LLC/memcp/pull/51) in [Jartan-LLC/memcp](https://github.com/Jartan-LLC/memcp)
 - 2026-08-17 07:28 UTC — merged [pull request #25](https://github.com/Jartan-LLC/sonde/pull/25) in [Jartan-LLC/sonde](https://github.com/Jartan-LLC/sonde)
 - 2026-08-17 07:27 UTC — opened [pull request #51](https://github.com/Jartan-LLC/memcp/pull/51) in [Jartan-LLC/memcp](https://github.com/Jartan-LLC/memcp)
@@ -49,7 +50,6 @@ Commits counts this account's commits on each repository's default branch, so a 
 - 2026-08-17 07:23 UTC — merged [pull request #94](https://github.com/Jartan-LLC/scaffold/pull/94) in [Jartan-LLC/scaffold](https://github.com/Jartan-LLC/scaffold)
 - 2026-08-17 07:22 UTC — opened [pull request #94](https://github.com/Jartan-LLC/scaffold/pull/94) in [Jartan-LLC/scaffold](https://github.com/Jartan-LLC/scaffold)
 - 2026-08-17 07:17 UTC — merged [pull request #4](https://github.com/Jartan-LLC/prediction-mirror-trader/pull/4) in [Jartan-LLC/prediction-mirror-trader](https://github.com/Jartan-LLC/prediction-mirror-trader)
-- 2026-08-17 07:05 UTC — opened [pull request #4](https://github.com/Jartan-LLC/prediction-mirror-trader/pull/4) in [Jartan-LLC/prediction-mirror-trader](https://github.com/Jartan-LLC/prediction-mirror-trader)
 
 <!-- END GENERATED -->
 
