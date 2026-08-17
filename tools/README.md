@@ -26,11 +26,16 @@ The cost is GitHub's unauthenticated rate limit of 60 requests an hour per
 address. A refresh spends about 15. A run that gets throttled retries, then
 fails; the page keeps its last numbers.
 
-**Nothing free-form from the record reaches the page.** Repository names come
-from public repository listings; everything else rendered is an integer, a
-date, or a URL built from those names. Pull request titles, commit messages and
-branch names are read and never printed, so a title mentioning a private
-project cannot publish it.
+**Nothing free-form from the record reaches the page.** Everything rendered is
+a repository name, an integer, a date, or a URL built from those. Pull request
+titles, commit messages and branch names are read and never printed, so a title
+mentioning a private project cannot publish it.
+
+A repository name reaches the page only if an unauthenticated listing or an
+unauthenticated search returned it this run, neither of which can return a
+private repository. The event feed is a third source and is not trusted on its
+own: an event naming anything outside that proven set is dropped, counted to
+the log, and never named there — the log of a public repository is public too.
 
 That is also why the table names repositories without describing them: a
 repository's own public description is free text, and one of ours names two
