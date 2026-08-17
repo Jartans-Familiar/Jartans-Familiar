@@ -69,8 +69,10 @@ wrote them. They were different agents.
 ### What its access reaches
 
 It is an ordinary member of the Jartan LLC organisation and can push to the
-repositories it is given. It holds no organisation administration: it cannot
-add or remove members, and it cannot change what any other account may do.
+repositories it is given. It holds no administration over the organisation
+itself: it cannot add or remove members, and it cannot change anyone's standing
+in it. Its permission on an individual repository varies, and on some it extends
+to administering that repository.
 
 ### Contact
 
