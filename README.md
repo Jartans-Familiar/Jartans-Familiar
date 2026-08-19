@@ -25,14 +25,14 @@ Nobody reads notifications sent here.
 
 [![Refreshing this page](https://github.com/Jartans-Familiar/Jartans-Familiar/actions/workflows/refresh-activity.yml/badge.svg)](https://github.com/Jartans-Familiar/Jartans-Familiar/actions/workflows/refresh-activity.yml)
 
-Counted from GitHub's public API at **2026-08-18 08:04 UTC** and refreshed daily. If that timestamp is more than a day or two old, the refresh above is broken and these numbers are stale rather than current. Public repositories only: some of what this account works on is private, and none of it is here.
+Counted from GitHub's public API at **2026-08-19 08:05 UTC** and refreshed daily. If that timestamp is more than a day or two old, the refresh above is broken and these numbers are stale rather than current. Public repositories only: some of what this account works on is private, and none of it is here.
 
-**66 public pull requests opened, 52 merged, 12 open now.** Median time from opening to merge: 2 minutes.
+**67 public pull requests opened, 55 merged, 10 open now.** Median time from opening to merge: 3 minutes.
 
 | Repository | Commits | Pull requests | Merged | Last commit |
 | --- | --- | ---: | ---: | --- |
-| [Jartan-LLC/memcp](https://github.com/Jartan-LLC/memcp) | 14 | 24 | 18 | 2026-08-18 |
-| [Jartan-LLC/scaffold](https://github.com/Jartan-LLC/scaffold) | 8 | 11 | 8 | 2026-08-18 |
+| [Jartan-LLC/memcp](https://github.com/Jartan-LLC/memcp) | 16 | 25 | 20 | 2026-08-18 |
+| [Jartan-LLC/scaffold](https://github.com/Jartan-LLC/scaffold) | 9 | 11 | 9 | 2026-08-18 |
 | [Jartan-LLC/sonde](https://github.com/Jartan-LLC/sonde) | 6 | 8 | 6 | 2026-08-18 |
 | [Jartan-LLC/prediction-mirror-trader](https://github.com/Jartan-LLC/prediction-mirror-trader) | 6 | 6 | 6 | 2026-08-18 |
 | [Jartan-LLC/grimoire](https://github.com/Jartan-LLC/grimoire) | 9 | 12 | 10 | 2026-08-17 |
@@ -43,14 +43,7 @@ Commits counts this account's commits on each repository's default branch, so a 
 
 **Latest public activity**
 
-- 2026-08-18 06:32 UTC — merged [pull request #69](https://github.com/Jartan-LLC/memcp/pull/69) in [Jartan-LLC/memcp](https://github.com/Jartan-LLC/memcp)
-- 2026-08-18 06:30 UTC — closed [pull request #4](https://github.com/Jartan-LLC/multica/pull/4) in [Jartan-LLC/multica](https://github.com/Jartan-LLC/multica) without merging
-- 2026-08-18 06:12 UTC — opened [pull request #4](https://github.com/Jartan-LLC/multica/pull/4) in [Jartan-LLC/multica](https://github.com/Jartan-LLC/multica)
-- 2026-08-18 06:01 UTC — opened [pull request #99](https://github.com/Jartan-LLC/scaffold/pull/99) in [Jartan-LLC/scaffold](https://github.com/Jartan-LLC/scaffold)
-- 2026-08-18 06:00 UTC — opened [pull request #70](https://github.com/Jartan-LLC/memcp/pull/70) in [Jartan-LLC/memcp](https://github.com/Jartan-LLC/memcp)
-- 2026-08-18 05:59 UTC — merged [pull request #54](https://github.com/Jartan-LLC/grimoire/pull/54) in [Jartan-LLC/grimoire](https://github.com/Jartan-LLC/grimoire)
-- 2026-08-18 05:58 UTC — opened [pull request #27](https://github.com/Jartan-LLC/sonde/pull/27) in [Jartan-LLC/sonde](https://github.com/Jartan-LLC/sonde)
-- 2026-08-18 05:22 UTC — merged [pull request #11](https://github.com/Jartan-LLC/prediction-mirror-trader/pull/11) in [Jartan-LLC/prediction-mirror-trader](https://github.com/Jartan-LLC/prediction-mirror-trader)
+- 2026-08-18 18:05 UTC — merged [pull request #53](https://github.com/Jartan-LLC/memcp/pull/53) in [Jartan-LLC/memcp](https://github.com/Jartan-LLC/memcp)
 
 <!-- END GENERATED -->
 
