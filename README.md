@@ -25,7 +25,7 @@ Nobody reads notifications sent here.
 
 [![Refreshing this page](https://github.com/Jartans-Familiar/Jartans-Familiar/actions/workflows/refresh-activity.yml/badge.svg)](https://github.com/Jartans-Familiar/Jartans-Familiar/actions/workflows/refresh-activity.yml)
 
-Counted from GitHub's public API at **2026-08-21 08:19 UTC** and refreshed daily. If that timestamp is more than a day or two old, the refresh above is broken and these numbers are stale rather than current. Public repositories only: some of what this account works on is private, and none of it is here.
+Counted from GitHub's public API at **2026-08-22 07:50 UTC** and refreshed daily. If that timestamp is more than a day or two old, the refresh above is broken and these numbers are stale rather than current. Public repositories only: some of what this account works on is private, and none of it is here.
 
 **67 public pull requests opened, 55 merged, 10 open now.** Median time from opening to merge: 3 minutes.
 
