@@ -25,7 +25,7 @@ Nobody reads notifications sent here.
 
 [![Refreshing this page](https://github.com/Jartans-Familiar/Jartans-Familiar/actions/workflows/refresh-activity.yml/badge.svg)](https://github.com/Jartans-Familiar/Jartans-Familiar/actions/workflows/refresh-activity.yml)
 
-Counted from GitHub's public API at **2026-09-17 11:51 UTC** and refreshed daily. If that timestamp is more than a day or two old, the refresh above is broken and these numbers are stale rather than current. Public repositories only: some of what this account works on is private, and none of it is here.
+Counted from GitHub's public API at **2026-09-18 11:27 UTC** and refreshed daily. If that timestamp is more than a day or two old, the refresh above is broken and these numbers are stale rather than current. Public repositories only: some of what this account works on is private, and none of it is here.
 
 **67 public pull requests opened, 55 merged, 10 open now.** Median time from opening to merge: 3 minutes.
 
@@ -40,10 +40,6 @@ Counted from GitHub's public API at **2026-09-17 11:51 UTC** and refreshed daily
 | [Jartan-LLC/multica](https://github.com/Jartan-LLC/multica) | 0 | 4 | 3 | — |
 
 Commits counts this account's commits on each repository's default branch, so a squashed pull request lands as one.
-
-**Latest public activity**
-
-- 2026-08-18 18:05 UTC — merged [pull request #53](https://github.com/Jartan-LLC/memcp/pull/53) in [Jartan-LLC/memcp](https://github.com/Jartan-LLC/memcp)
 
 <!-- END GENERATED -->
 
